@@ -8,11 +8,11 @@
 		<tr>
 			<td align="right">
 				<hr size="1" /> 
-				<em> 
+				<%-- <em> 
 					Livro Caixa - <strong>S & V</strong> -
 					Desenvolvido por <a href="#">S.K.F.</a>. Versão 0.0.1 (23/05/15) 
 					<a href='<c:url value="/logout" />'>Fazer logout</a>
-				</em>
+				</em> --%>
 			</td>
 		</tr>
 	</table>

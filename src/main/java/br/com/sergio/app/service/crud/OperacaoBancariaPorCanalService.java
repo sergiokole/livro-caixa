@@ -9,5 +9,10 @@ public interface OperacaoBancariaPorCanalService extends BaseService<OperacaoBan
 	public Map<Integer, String> listaOperacaoBancaria();
 	
 	public Map<Integer, String> listaCanalAtendimento();
+	
+	public void salvar(Integer operacaoBancariaId,
+			String operacaoBancariaNome,
+			Integer canalAtendimentoId,
+			String canalAtendimentoNome);
 
 }

@@ -4,6 +4,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,11 @@ public class OperacaoBancariaPorCanalController {
 	
 	@Autowired
 	private OperacaoBancariaPorCanalService service;
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder){
+		binder.addValidators(new OperacaoBancariaPorCanalFormValidator());
+	}
 	
 	@ModelAttribute("listaOperacaoBancaria")
 	public Map<Integer, String> listaOperacaoBancaria(){
@@ -46,7 +54,9 @@ public class OperacaoBancariaPorCanalController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(){
 		
-		return new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
+		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
+		modelAndView.addObject(new OperacaoBancariaPorCanalForm());
+		return modelAndView;
 	}
 	
 	@RequestMapping("/editar/{operacaoBancariaId}/{canalAtendimentoId}")
@@ -65,9 +75,23 @@ public class OperacaoBancariaPorCanalController {
 	}
 	
 	@RequestMapping(value="/salvar", method=RequestMethod.POST)
-	public ModelAndView salvar(OperacaoBancariaPorCanalForm form){
+	public ModelAndView salvar(
+			ModelAndView modelAndView, 
+			OperacaoBancariaPorCanalForm form, 
+			BindingResult result){
 		
-		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
+		if(result.hasErrors()){
+			return modelAndView;
+		}
+		
+		service.salvar(
+				form.getOperacaoBancariaId(), 
+				form.getOperacaoBancariaNome(), 
+				form.getCanalAtendimentoId(), 
+				form.getCanalAtendimentoNome());
+		
+		modelAndView.setViewName(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
+		return modelAndView;
 	}
 	
 	@RequestMapping("/remover/{operacaoBancariaId}/{canalAtendimentoId}")

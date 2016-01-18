@@ -20,7 +20,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title id='titulo'>Livro caixa S & V</title>
+	<!-- <title id='titulo'>Livro caixa S & V</title> -->
+	<title id='titulo'>POC</title>
 	<meta name="LANGUAGE" content="Portuguese" />
 	<meta name="AUDIENCE" content="all" />
 	<meta name="RATING" content="GENERAL" />
@@ -37,7 +38,8 @@
 		<table cellpadding="1" cellspacing="10" width="900" align="center" style="background-color: #033">
 			<tr>
 				<td colspan="11" style="background-color: #005B5B;">
-					<h2 style="color: #FFF; margin: 5px">Livro Caixa - S & V</h2>
+					<!-- <h2 style="color: #FFF; margin: 5px">Livro Caixa - S & V</h2> -->
+					<h2 style="color: #FFF; margin: 5px">POC - Testes</h2>
 				</td>
 				<td colspan="2" align="right" style="background-color: #005B5B;">
 					<a style="color: #FFF" href='<c:url value="/movimentos/${yearCurrent}/${monthCurrent}" />' >

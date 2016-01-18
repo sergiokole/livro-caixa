@@ -34,7 +34,35 @@ $(function(){
 		$('form').attr('action', '${urlVoltar}');
 		$('form').submit();
 	});
-})
+	
+	carregaConfiguracoesDe('operacaoBancaria');
+	carregaConfiguracoesDe('canalAtendimento');
+});
+
+function carregaConfiguracoesDe(nome){
+	
+	var input = getInput(nome);
+	var select = getSelect(nome);
+	
+	input.prop('disabled', true);
+	
+	select.change(function(){
+		if(!this.value){
+			input.prop('disabled', false);
+			return;
+		}
+		input.prop('disabled', true);
+		input.val('');
+	});
+}
+
+function getSelect(de){
+	return $('#' + de + 'Id');
+}
+
+function getInput(de){
+	return $('#' + de + 'Nome');
+}
 
 </script>
 
@@ -52,26 +80,16 @@ $(function(){
 			</tr>
 			<tr>
 				<td>
-					<form:select path="operacaoBancariaId" items="listaOperacaoBancaria" />
-					<%-- <select id="operacaoBancariaId" >
-						<option>Novo</option>
-						<c:forEach var="item" items="${listaOperacaoBancaria}" >
-							<option value="${item.id}">
-								<c:out value="${item.nome}" />
-							</option>
-						</c:forEach>
-					</select> --%>
+					<form:select path="operacaoBancariaId" >
+						<form:options items="${listaOperacaoBancaria}" />
+						<form:option value="">--Inserir Novo--</form:option>
+					</form:select>
 				</td>
 				<td>
-					<form:select path="canalAtendimentoId" items="listaCanalAtendimento" />
-					<%-- <select id="canalAtendimentoId" >
-						<option>Novo</option>
-						<c:forEach var="item" items="${listaCanalAtendimento}" >
-							<option value="${item.id}">
-								<c:out value="${item.nome}" />
-							</option>
-						</c:forEach>
-					</select> --%>
+					<form:select path="canalAtendimentoId" >
+						<form:options items="${listaCanalAtendimento}" />
+						<form:option value="">--Inserir Novo--</form:option>
+					</form:select>
 				</td>
 			</tr>
 			<tr>

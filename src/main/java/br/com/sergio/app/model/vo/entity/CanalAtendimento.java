@@ -22,7 +22,7 @@ public class CanalAtendimento {
 	private String nome;
 	
 	@OneToMany
-	private List<OperacaoBancariaPorCanalPK> operacoesBancariasPorCanal;
+	private List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal;
 
 	/**
 	 * @return the id
@@ -55,14 +55,14 @@ public class CanalAtendimento {
 	/**
 	 * @return the operacoesBancariasPorCanal
 	 */
-	public List<OperacaoBancariaPorCanalPK> getOperacoesBancariasPorCanal() {
+	public List<OperacaoBancariaPorCanal> getOperacoesBancariasPorCanal() {
 		return operacoesBancariasPorCanal;
 	}
 
 	/**
 	 * @param operacoesBancariasPorCanal the operacoesBancariasPorCanal to set
 	 */
-	public void setOperacoesBancariasPorCanal(List<OperacaoBancariaPorCanalPK> operacoesBancariasPorCanal) {
+	public void setOperacoesBancariasPorCanal(List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal) {
 		this.operacoesBancariasPorCanal = operacoesBancariasPorCanal;
 	} 
 
