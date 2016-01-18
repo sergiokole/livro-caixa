@@ -2,51 +2,33 @@ package br.com.sergio.app.model.vo.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="operacao_bancaria_por_canal")
 public class OperacaoBancariaPorCanal {
 
-	@ManyToOne(targetEntity=OperacaoBancaria.class, cascade={CascadeType.ALL})
-	private OperacaoBancaria operacaoBancaria;
-	
-	@ManyToOne(targetEntity=CanalAtendimento.class, cascade={CascadeType.ALL})
-	private CanalAtendimento canalAtendimento;
+	@EmbeddedId
+	private OperacaoBancariaPorCanalPK id;
 
 	@Column
 	private Date data;
 
 	/**
-	 * @return the operacaoBancaria
+	 * @return the id
 	 */
-	public OperacaoBancaria getOperacaoBancaria() {
-		return operacaoBancaria;
+	public OperacaoBancariaPorCanalPK getId() {
+		return id;
 	}
 
 	/**
-	 * @param operacaoBancaria the operacaoBancaria to set
+	 * @param id the id to set
 	 */
-	public void setOperacaoBancaria(OperacaoBancaria operacaoBancaria) {
-		this.operacaoBancaria = operacaoBancaria;
-	}
-
-	/**
-	 * @return the canalAtendimento
-	 */
-	public CanalAtendimento getCanalAtendimento() {
-		return canalAtendimento;
-	}
-
-	/**
-	 * @param canalAtendimento the canalAtendimento to set
-	 */
-	public void setCanalAtendimento(CanalAtendimento canalAtendimento) {
-		this.canalAtendimento = canalAtendimento;
+	public void setId(OperacaoBancariaPorCanalPK id) {
+		this.id = id;
 	}
 
 	/**

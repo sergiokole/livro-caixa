@@ -45,9 +45,9 @@ public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorC
 	@Override
 	public Map<Integer, String> listaOperacaoBancaria() {
 		Map<Integer,String> map = new HashMap<>();
-		read().forEach(obc -> {
-			map.put(obc.getOperacaoBancaria().getId(), obc.getOperacaoBancaria().getNome());
-		});
+//		read().forEach(obc -> {
+//			map.put(obc.getPk().getOperacaoBancaria().getId(), obc.getPk().getOperacaoBancaria().getNome());
+//		});
 		
 		return map;
 	}
@@ -55,9 +55,9 @@ public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorC
 	@Override
 	public Map<Integer, String> listaCanalAtendimento() {
 		Map<Integer,String> map = new HashMap<>();
-		read().forEach(obc -> {
-			map.put(obc.getCanalAtendimento().getId(), obc.getCanalAtendimento().getNome());
-		});
+//		read().forEach(obc -> {
+//			map.put(obc.getPk().getCanalAtendimento().getId(), obc.getPk().getCanalAtendimento().getNome());
+//		});
 		
 		return map;
 	}

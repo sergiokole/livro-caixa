@@ -21,8 +21,8 @@ public class CanalAtendimento {
 	@Column
 	private String nome;
 	
-	@OneToMany(mappedBy="operacaoBancariaPorCanal")
-	private List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal;
+	@OneToMany
+	private List<OperacaoBancariaPorCanalPK> operacoesBancariasPorCanal;
 
 	/**
 	 * @return the id
@@ -55,14 +55,14 @@ public class CanalAtendimento {
 	/**
 	 * @return the operacoesBancariasPorCanal
 	 */
-	public List<OperacaoBancariaPorCanal> getOperacoesBancariasPorCanal() {
+	public List<OperacaoBancariaPorCanalPK> getOperacoesBancariasPorCanal() {
 		return operacoesBancariasPorCanal;
 	}
 
 	/**
 	 * @param operacoesBancariasPorCanal the operacoesBancariasPorCanal to set
 	 */
-	public void setOperacoesBancariasPorCanal(List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal) {
+	public void setOperacoesBancariasPorCanal(List<OperacaoBancariaPorCanalPK> operacoesBancariasPorCanal) {
 		this.operacoesBancariasPorCanal = operacoesBancariasPorCanal;
 	} 
 

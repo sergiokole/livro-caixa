@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,7 +22,8 @@ public class OperacaoBancaria {
 	@Column
 	private String nome;
 
-	@OneToMany(mappedBy="operacaoBancariaPorCanal")
+	@OneToMany
+//	@JoinColumn(table="operacao_bancaria_por_canal", referencedColumnName="operacao_bancaria_id")
 	private List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal;
 
 	/**
