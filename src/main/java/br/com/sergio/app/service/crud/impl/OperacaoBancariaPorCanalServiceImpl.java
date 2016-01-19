@@ -1,8 +1,10 @@
 package br.com.sergio.app.service.crud.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import br.com.sergio.app.model.vo.entity.OperacaoBancaria;
 import br.com.sergio.app.model.vo.entity.OperacaoBancariaPorCanal;
 import br.com.sergio.app.model.vo.entity.OperacaoBancariaPorCanalPK;
 import br.com.sergio.app.service.crud.OperacaoBancariaPorCanalService;
+import br.com.sergio.web.controller.operacaocanal.OperacaoBancariaPorCanalForm;
 
 @Service
 public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorCanalService {
@@ -98,6 +101,21 @@ public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorC
 		operacaoBancariaPorCanal.setData(new Date());
 		
 		repository.save(operacaoBancariaPorCanal);
+	}
+
+	@Override
+	public List<OperacaoBancariaPorCanalForm> lista() {
+		
+		List<OperacaoBancariaPorCanalForm> dadosForm = new ArrayList<>();
+		
+		read().forEach(action -> {
+			OperacaoBancariaPorCanalPK pk = action.getId();
+			dadosForm.add(new OperacaoBancariaPorCanalForm(
+					pk.getOperacaoBancaria().getId(), pk.getOperacaoBancaria().getNome(), 
+					pk.getCanalAtendimento().getId(), pk.getCanalAtendimento().getNome()));
+		});
+		
+		return dadosForm;
 	}
 	
 }

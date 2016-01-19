@@ -44,12 +44,12 @@ $(function(){
 					<td ><strong>Nome</strong></td>
 				</tr>
 				<c:forEach var="vo" items="${lista}" >
-					<c:url var="editar" value="/operacao-canal/editar/${vo.id}" />
-					<c:url var="remover" value="/operacao-canal/remover/${vo.id}" />
+					<c:url var="editar" value="/operacao-canal/editar/${vo.operacaoBancariaId}/${vo.canalAtendimentoId}" />
+					<c:url var="remover" value="/operacao-canal/remover/${vo.operacaoBancariaId}/${vo.canalAtendimentoId}" />
 					<tr>
 						<td><a href="${editar}" >Editar</a> </td>
 						<td><a href="${remover}" >Remover</a> </td>
-						<td><strong><c:out value="${vo.nome}" /></strong></td>
+						<td><strong><c:out value="${vo.descricao}" /></strong></td>
 					</tr>
 				</c:forEach>
 			</table>		

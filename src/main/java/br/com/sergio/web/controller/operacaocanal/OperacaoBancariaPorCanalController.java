@@ -1,10 +1,12 @@
 package br.com.sergio.web.controller.operacaocanal;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,9 +30,12 @@ public class OperacaoBancariaPorCanalController {
 	@Autowired
 	private OperacaoBancariaPorCanalService service;
 	
+	@Autowired
+	private OperacaoBancariaPorCanalFormValidator validator;
+	
 	@InitBinder
-	protected void initBinder(WebDataBinder binder){
-		binder.addValidators(new OperacaoBancariaPorCanalFormValidator());
+	public void initBinder(WebDataBinder binder){
+		binder.addValidators(validator);
 	}
 	
 	@ModelAttribute("listaOperacaoBancaria")
@@ -46,7 +51,10 @@ public class OperacaoBancariaPorCanalController {
 	@RequestMapping("")
 	public ModelAndView lista(){
 		
+		List<OperacaoBancariaPorCanalForm> lista = service.lista();
+		
 		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.LISTA);
+		modelAndView.addObject("lista", lista);
 		
 		return modelAndView;
 	}
@@ -64,24 +72,19 @@ public class OperacaoBancariaPorCanalController {
 			@PathVariable("operacaoBancariaId") Integer operacaoBancariaId,
 			@PathVariable("canalAtendimentoId") Integer canalAtendimentoId){
 		
-		OperacaoBancariaPorCanalForm form = new OperacaoBancariaPorCanalForm();
-		form.setCanalAtendimentoId(canalAtendimentoId);
-		form.setOperacaoBancariaId(operacaoBancariaId);
-
 		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
-		modelAndView.addObject("operacaoBancariaPorCanalForm", form);
-		
+		modelAndView.addObject(OperacaoBancariaPorCanalForm.edita(operacaoBancariaId, canalAtendimentoId));
 		return  modelAndView;
 	}
 	
 	@RequestMapping(value="/salvar", method=RequestMethod.POST)
 	public ModelAndView salvar(
-			ModelAndView modelAndView, 
-			OperacaoBancariaPorCanalForm form, 
+			@Validated OperacaoBancariaPorCanalForm form, 
+			/*ModelAndView modelAndView,*/ 
 			BindingResult result){
 		
 		if(result.hasErrors()){
-			return modelAndView;
+			return null;
 		}
 		
 		service.salvar(
@@ -90,8 +93,9 @@ public class OperacaoBancariaPorCanalController {
 				form.getCanalAtendimentoId(), 
 				form.getCanalAtendimentoNome());
 		
-		modelAndView.setViewName(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
-		return modelAndView;
+//		modelAndView.setViewName(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
+//		return modelAndView;
+		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
 	}
 	
 	@RequestMapping("/remover/{operacaoBancariaId}/{canalAtendimentoId}")

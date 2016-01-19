@@ -1,9 +1,11 @@
 package br.com.sergio.web.controller.operacaocanal;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+@Component
 public class OperacaoBancariaPorCanalFormValidator implements Validator {
 
 	@Override
@@ -17,11 +19,11 @@ public class OperacaoBancariaPorCanalFormValidator implements Validator {
 		OperacaoBancariaPorCanalForm form = (OperacaoBancariaPorCanalForm) obj;
 		
 		if(form.getCanalAtendimentoId() == null){
-			ValidationUtils.rejectIfEmptyOrWhitespace(e, "canalAtendimentoNome", "Campo não pode ser vazio!");
+			ValidationUtils.rejectIfEmptyOrWhitespace(e, "canalAtendimentoNome", "Campo nï¿½o pode ser vazio!");
 		}
 		
 		if(form.getOperacaoBancariaId() == null){
-			ValidationUtils.rejectIfEmptyOrWhitespace(e, "operacaoBancariaNome", "Campo não pode ser vazio!");
+			ValidationUtils.rejectIfEmptyOrWhitespace(e, "operacaoBancariaNome", "Campo nï¿½o pode ser vazio!");
 		}
 	}
 
