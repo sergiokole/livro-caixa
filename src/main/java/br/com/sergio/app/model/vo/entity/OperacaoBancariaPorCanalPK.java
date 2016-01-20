@@ -2,6 +2,7 @@ package br.com.sergio.app.model.vo.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,8 +16,8 @@ public class OperacaoBancariaPorCanalPK implements Serializable {
 	@JoinColumn(name="operacao_bancaria_id", nullable=false)
 	private OperacaoBancaria operacaoBancaria;
 	
-	@ManyToOne
-	@JoinColumn(name="canal_atendimento_id", nullable=false)
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="canal_atendimento_id", nullable=false, insertable=true)
 	private CanalAtendimento canalAtendimento;
 
 	/**

@@ -80,11 +80,12 @@ public class OperacaoBancariaPorCanalController {
 	@RequestMapping(value="/salvar", method=RequestMethod.POST)
 	public ModelAndView salvar(
 			@Validated OperacaoBancariaPorCanalForm form, 
-			/*ModelAndView modelAndView,*/ 
 			BindingResult result){
 		
 		if(result.hasErrors()){
-			return null;
+			ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
+			modelAndView.addObject(form);
+			return modelAndView;
 		}
 		
 		service.salvar(
@@ -93,8 +94,6 @@ public class OperacaoBancariaPorCanalController {
 				form.getCanalAtendimentoId(), 
 				form.getCanalAtendimentoNome());
 		
-//		modelAndView.setViewName(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
-//		return modelAndView;
 		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
 	}
 	
