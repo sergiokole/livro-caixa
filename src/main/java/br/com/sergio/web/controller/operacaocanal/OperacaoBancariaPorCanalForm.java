@@ -2,32 +2,52 @@ package br.com.sergio.web.controller.operacaocanal;
 
 public class OperacaoBancariaPorCanalForm {
 	
+	private Integer operacaoBancariaPorCanalId;
 	private Integer operacaoBancariaId;
 	private String operacaoBancariaNome;
 	private Integer canalAtendimentoId;
 	private String canalAtendimentoNome;
 	
-	public OperacaoBancariaPorCanalForm() { }
-	
-	public OperacaoBancariaPorCanalForm(
-			Integer operacaoBancariaId, String operacaoBancariaNome,
-			Integer canalAtendimentoId, String canalAtendimentoNome) {
-		this.operacaoBancariaId = operacaoBancariaId;
-		this.operacaoBancariaNome = operacaoBancariaNome;
-		this.canalAtendimentoId = canalAtendimentoId;
-		this.canalAtendimentoNome = canalAtendimentoNome;
+	public OperacaoBancariaPorCanalForm() {}
+
+	public static OperacaoBancariaPorCanalForm lista(
+			Integer operacaoBancariaPorCanalId,
+			String operacaoBancariaNome,
+			String canalAtendimentoNome){
+		
+		OperacaoBancariaPorCanalForm form = new OperacaoBancariaPorCanalForm();
+		form.setOperacaoBancariaPorCanalId(operacaoBancariaPorCanalId);
+		form.setOperacaoBancariaNome(operacaoBancariaNome);
+		form.setCanalAtendimentoNome(canalAtendimentoNome);
+		return form;
 	}
 	
 	public static OperacaoBancariaPorCanalForm edita(
-			Integer operacaoBancariaId, 
+			Integer operacaoBancariaPorCanalId,
+			Integer operacaoBancariaId,
 			Integer canalAtendimentoId){
-		 
-		 OperacaoBancariaPorCanalForm form = new OperacaoBancariaPorCanalForm();
-		 form.setCanalAtendimentoId(canalAtendimentoId);
-		 form.setOperacaoBancariaId(operacaoBancariaId);
-		 return form;
+		
+		OperacaoBancariaPorCanalForm form = new OperacaoBancariaPorCanalForm();
+		form.setOperacaoBancariaPorCanalId(operacaoBancariaPorCanalId);
+		form.setOperacaoBancariaId(operacaoBancariaId);
+		form.setCanalAtendimentoId(canalAtendimentoId);
+		return form;
 	}
 	
+	/**
+	 * @return the operacaoBancariaPorCanalId
+	 */
+	public Integer getOperacaoBancariaPorCanalId() {
+		return operacaoBancariaPorCanalId;
+	}
+
+	/**
+	 * @param operacaoBancariaPorCanalId the operacaoBancariaPorCanalId to set
+	 */
+	public void setOperacaoBancariaPorCanalId(Integer operacaoBancariaPorCanalId) {
+		this.operacaoBancariaPorCanalId = operacaoBancariaPorCanalId;
+	}
+
 	/**
 	 * @return the operacaoBancariaId
 	 */

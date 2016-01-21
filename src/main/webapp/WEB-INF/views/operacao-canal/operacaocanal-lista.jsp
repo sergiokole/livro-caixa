@@ -44,8 +44,8 @@ $(function(){
 					<td ><strong>Nome</strong></td>
 				</tr>
 				<c:forEach var="vo" items="${lista}" >
-					<c:url var="editar" value="/operacao-canal/editar/${vo.operacaoBancariaId}/${vo.canalAtendimentoId}" />
-					<c:url var="remover" value="/operacao-canal/remover/${vo.operacaoBancariaId}/${vo.canalAtendimentoId}" />
+					<c:url var="editar" value="/operacao-canal/editar/${vo.operacaoBancariaPorCanalId}" />
+					<c:url var="remover" value="/operacao-canal/remover/${vo.operacaoBancariaPorCanalId}" />
 					<tr>
 						<td><a href="${editar}" >Editar</a> </td>
 						<td><a href="${remover}" >Remover</a> </td>

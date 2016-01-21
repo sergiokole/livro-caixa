@@ -19,11 +19,11 @@ public class OperacaoBancariaPorCanalFormValidator implements Validator {
 		OperacaoBancariaPorCanalForm form = (OperacaoBancariaPorCanalForm) obj;
 		
 		if(form.getCanalAtendimentoId() == null){
-			ValidationUtils.rejectIfEmptyOrWhitespace(e, "canalAtendimentoNome", "Campo n�o pode ser vazio!");
+			ValidationUtils.rejectIfEmptyOrWhitespace(e, "canalAtendimentoNome", "Campo não pode ser vazio!");
 		}
 		
 		if(form.getOperacaoBancariaId() == null){
-			ValidationUtils.rejectIfEmptyOrWhitespace(e, "operacaoBancariaNome", "Campo n�o pode ser vazio!");
+			ValidationUtils.rejectIfEmptyOrWhitespace(e, "operacaoBancariaNome", "Campo não pode ser vazio!");
 		}
 	}
 

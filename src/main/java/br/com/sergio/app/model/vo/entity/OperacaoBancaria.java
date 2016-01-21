@@ -1,5 +1,6 @@
 package br.com.sergio.app.model.vo.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,10 +13,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="operacao_bancaria")
-public class OperacaoBancaria {
+public class OperacaoBancaria implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5353863692844134723L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column

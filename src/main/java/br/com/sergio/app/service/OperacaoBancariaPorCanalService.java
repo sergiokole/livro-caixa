@@ -1,8 +1,6 @@
-package br.com.sergio.app.service.crud.impl;
+package br.com.sergio.app.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +15,10 @@ import br.com.sergio.app.model.repository.crud.OperacaoBancariaRepository;
 import br.com.sergio.app.model.vo.entity.CanalAtendimento;
 import br.com.sergio.app.model.vo.entity.OperacaoBancaria;
 import br.com.sergio.app.model.vo.entity.OperacaoBancariaPorCanal;
-import br.com.sergio.app.model.vo.entity.OperacaoBancariaPorCanalPK;
-import br.com.sergio.app.service.crud.OperacaoBancariaPorCanalService;
 import br.com.sergio.web.controller.operacaocanal.OperacaoBancariaPorCanalForm;
 
 @Service
-public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorCanalService {
+public class OperacaoBancariaPorCanalService {
 	
 	@Autowired
 	private OperacaoBancariaPorCanalRepository repository;
@@ -33,32 +29,11 @@ public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorC
 	@Autowired
 	private CanalAtendimentoRepository canalAtendimentoRepository;
 
-	@Override
-	public OperacaoBancariaPorCanal create(OperacaoBancariaPorCanal create) {
-		return repository.save(create);
-	}
 
-	@Override
-	public Collection<OperacaoBancariaPorCanal> read() {
-		return repository.findAll();
-	}
-
-	@Override
-	public OperacaoBancariaPorCanal read(Integer id) {
-		return repository.findOne(id);
-	}
-
-	@Override
-	public OperacaoBancariaPorCanal update(OperacaoBancariaPorCanal update) {
-		return repository.save(update);
-	}
-
-	@Override
 	public void delete(Integer id) {
 		repository.delete(id);
 	}
 
-	@Override
 	public Map<Integer, String> listaOperacaoBancaria() {
 		Map<Integer,String> map = new HashMap<>();
 		operacaoBancariaRepository.findAll().forEach(entidade -> {
@@ -67,7 +42,6 @@ public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorC
 		return map;
 	}
 
-	@Override
 	public Map<Integer, String> listaCanalAtendimento() {
 		Map<Integer,String> map = new HashMap<>();
 		canalAtendimentoRepository.findAll().forEach(entidade -> {
@@ -76,46 +50,65 @@ public class OperacaoBancariaPorCanalServiceImpl implements OperacaoBancariaPorC
 		return map;
 	}
 
-	@Override
 	@Transactional(rollbackFor=Exception.class)
 	public void salvar(
+			Integer operacaoBancariaPorCanalId,
 			Integer operacaoBancariaId, 
 			String operacaoBancariaNome, 
 			Integer canalAtendimentoId,
 			String canalAtendimentoNome) {
 		
-		CanalAtendimento canalAtendimento = new CanalAtendimento();
-		canalAtendimento.setId(canalAtendimentoId);
-		canalAtendimento.setNome(canalAtendimentoNome);
-		
-		OperacaoBancaria operacaoBancaria = new OperacaoBancaria();
-		operacaoBancaria.setId(operacaoBancariaId);
-		operacaoBancaria.setNome(operacaoBancariaNome);
-		
-		OperacaoBancariaPorCanalPK id = new OperacaoBancariaPorCanalPK();
-		id.setOperacaoBancaria(operacaoBancaria);
-		id.setCanalAtendimento(canalAtendimento);
-		
 		OperacaoBancariaPorCanal operacaoBancariaPorCanal = new OperacaoBancariaPorCanal();
-		operacaoBancariaPorCanal.setId(id);
-		operacaoBancariaPorCanal.setData(new Date());
+		operacaoBancariaPorCanal.setId(operacaoBancariaPorCanalId);
+		operacaoBancariaPorCanal.setOperacaoBancaria(saveOperacaoBancaria(operacaoBancariaId, operacaoBancariaNome));
+		operacaoBancariaPorCanal.setCanalAtendimento(saveCanalAtendimento(canalAtendimentoId, canalAtendimentoNome));
 		
 		repository.save(operacaoBancariaPorCanal);
 	}
 
-	@Override
+	private OperacaoBancaria saveOperacaoBancaria(Integer id, String nome) {
+		OperacaoBancaria operacaoBancaria = new OperacaoBancaria();
+		operacaoBancaria.setId(id);
+		operacaoBancaria.setNome(nome);
+		if(id == null){
+			operacaoBancaria = operacaoBancariaRepository.save(operacaoBancaria);
+		}
+		return operacaoBancaria;
+	}
+
+	private CanalAtendimento saveCanalAtendimento(Integer id, String nome) {
+		CanalAtendimento canalAtendimento = new CanalAtendimento();
+		canalAtendimento.setId(id);
+		canalAtendimento.setNome(nome);
+		if(id == null){
+			canalAtendimento = canalAtendimentoRepository.save(canalAtendimento);
+		}
+		return canalAtendimento;
+	}
+
 	public List<OperacaoBancariaPorCanalForm> lista() {
 		
 		List<OperacaoBancariaPorCanalForm> dadosForm = new ArrayList<>();
 		
-		read().forEach(action -> {
-			OperacaoBancariaPorCanalPK pk = action.getId();
-			dadosForm.add(new OperacaoBancariaPorCanalForm(
-					pk.getOperacaoBancaria().getId(), pk.getOperacaoBancaria().getNome(), 
-					pk.getCanalAtendimento().getId(), pk.getCanalAtendimento().getNome()));
+		repository.findAll().forEach(action -> {
+			dadosForm.add(
+					OperacaoBancariaPorCanalForm.lista(
+							action.getId(), 
+							action.getOperacaoBancaria().getNome(), 
+							action.getCanalAtendimento().getNome()));
 		});
 		
 		return dadosForm;
+	}
+	
+	public OperacaoBancariaPorCanalForm edita(Integer id) {
+		
+		OperacaoBancariaPorCanal operacaoBancariaPorCanal = repository.findOne(id);
+		
+		return OperacaoBancariaPorCanalForm.edita(
+				operacaoBancariaPorCanal.getId(),
+				operacaoBancariaPorCanal.getOperacaoBancaria().getId(), 
+				operacaoBancariaPorCanal.getCanalAtendimento().getId());
 	}
 	
 }

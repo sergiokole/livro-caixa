@@ -47,7 +47,7 @@ function carregaConfiguracoesDe(nome){
 	input.prop('disabled', true);
 	
 	select.change(function(){
-		if(!this.value){
+		if(!this.value && this.selectedOptions[0].innerHTML == '--Inserir Novo--'){
 			input.prop('disabled', false);
 			return;
 		}
@@ -73,6 +73,8 @@ function getInput(de){
 	
 	<form:form modelAttribute="operacaoBancariaPorCanalForm" action="${action}" method="POST" >
 	
+		<form:hidden path="operacaoBancariaPorCanalId" />
+	
 		<table>
 			<tr>
 				<td ><strong>Operação Bancária</strong></td>
@@ -81,20 +83,24 @@ function getInput(de){
 			<tr>
 				<td>
 					<form:select path="operacaoBancariaId" >
+						<form:option value="">Selecione...</form:option>
 						<form:options items="${listaOperacaoBancaria}" />
 						<form:option value="">--Inserir Novo--</form:option>
 					</form:select>
+					<form:errors path="operacaoBancariaId" />
 				</td>
 				<td>
 					<form:select path="canalAtendimentoId" >
+						<form:option value="">Selecione...</form:option>
 						<form:options items="${listaCanalAtendimento}" />
 						<form:option value="">--Inserir Novo--</form:option>
 					</form:select>
+					<form:errors path="canalAtendimentoId" />
 				</td>
 			</tr>
 			<tr>
-				<td><form:input path="operacaoBancariaNome"/></td>
-				<td><form:input path="canalAtendimentoNome"/></td>
+				<td><form:input path="operacaoBancariaNome"/><form:errors path="operacaoBancariaNome" /></td>
+				<td><form:input path="canalAtendimentoNome"/><form:errors path="canalAtendimentoNome" /></td>
 			</tr>
 		</table>
 		 

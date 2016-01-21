@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.sergio.app.service.crud.OperacaoBancariaPorCanalService;
+import br.com.sergio.app.service.OperacaoBancariaPorCanalService;
 
 /**
  * CRUD dos dados de Operações Bancárias por Canal de Atendimento
@@ -67,13 +67,11 @@ public class OperacaoBancariaPorCanalController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/editar/{operacaoBancariaId}/{canalAtendimentoId}")
-	public ModelAndView editar(
-			@PathVariable("operacaoBancariaId") Integer operacaoBancariaId,
-			@PathVariable("canalAtendimentoId") Integer canalAtendimentoId){
+	@RequestMapping("/editar/{operacaoBancariaPorCanalId}")
+	public ModelAndView editar(@PathVariable("operacaoBancariaPorCanalId") Integer operacaoBancariaPorCanalId){
 		
 		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
-		modelAndView.addObject(OperacaoBancariaPorCanalForm.edita(operacaoBancariaId, canalAtendimentoId));
+		modelAndView.addObject(service.edita(operacaoBancariaPorCanalId));
 		return  modelAndView;
 	}
 	
@@ -89,6 +87,7 @@ public class OperacaoBancariaPorCanalController {
 		}
 		
 		service.salvar(
+				form.getOperacaoBancariaPorCanalId(),
 				form.getOperacaoBancariaId(), 
 				form.getOperacaoBancariaNome(), 
 				form.getCanalAtendimentoId(), 
@@ -97,10 +96,8 @@ public class OperacaoBancariaPorCanalController {
 		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
 	}
 	
-	@RequestMapping("/remover/{operacaoBancariaId}/{canalAtendimentoId}")
-	public ModelAndView remover(
-			@PathVariable("operacaoBancariaId") Integer operacaoBancariaId,
-			@PathVariable("canalAtendimentoId") Integer canalAtendimentoId){
+	@RequestMapping("/remover/{operacaoBancariaPorId}")
+	public ModelAndView remover(@PathVariable("operacaoBancariaPorId") Integer operacaoBancariaPorId){
 		
 		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
 	}
