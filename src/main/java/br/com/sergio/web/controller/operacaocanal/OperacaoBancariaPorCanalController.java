@@ -80,18 +80,25 @@ public class OperacaoBancariaPorCanalController {
 			@Validated OperacaoBancariaPorCanalForm form, 
 			BindingResult result){
 		
+		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
+		
 		if(result.hasErrors()){
-			ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
 			modelAndView.addObject(form);
 			return modelAndView;
 		}
 		
-		service.salvar(
-				form.getOperacaoBancariaPorCanalId(),
-				form.getOperacaoBancariaId(), 
-				form.getOperacaoBancariaNome(), 
-				form.getCanalAtendimentoId(), 
-				form.getCanalAtendimentoNome());
+		try{
+			service.salvar(
+					form.getOperacaoBancariaPorCanalId(),
+					form.getOperacaoBancariaId(), 
+					form.getOperacaoBancariaNome(), 
+					form.getCanalAtendimentoId(), 
+					form.getCanalAtendimentoNome());
+		} catch (Exception e){
+			modelAndView.addObject(form);
+			modelAndView.addObject("errors", e.getMessage());
+			return modelAndView;
+		}
 		
 		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
 	}

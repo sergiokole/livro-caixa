@@ -60,13 +60,13 @@ public class OperacaoBancariaPorCanalService {
 		
 		OperacaoBancariaPorCanal operacaoBancariaPorCanal = new OperacaoBancariaPorCanal();
 		operacaoBancariaPorCanal.setId(operacaoBancariaPorCanalId);
-		operacaoBancariaPorCanal.setOperacaoBancaria(saveOperacaoBancaria(operacaoBancariaId, operacaoBancariaNome));
-		operacaoBancariaPorCanal.setCanalAtendimento(saveCanalAtendimento(canalAtendimentoId, canalAtendimentoNome));
+		operacaoBancariaPorCanal.setOperacaoBancaria(salvarOperacaoBancaria(operacaoBancariaId, operacaoBancariaNome));
+		operacaoBancariaPorCanal.setCanalAtendimento(salvarCanalAtendimento(canalAtendimentoId, canalAtendimentoNome));
 		
 		repository.save(operacaoBancariaPorCanal);
 	}
 
-	private OperacaoBancaria saveOperacaoBancaria(Integer id, String nome) {
+	private OperacaoBancaria salvarOperacaoBancaria(Integer id, String nome) {
 		OperacaoBancaria operacaoBancaria = new OperacaoBancaria();
 		operacaoBancaria.setId(id);
 		operacaoBancaria.setNome(nome);
@@ -76,7 +76,7 @@ public class OperacaoBancariaPorCanalService {
 		return operacaoBancaria;
 	}
 
-	private CanalAtendimento saveCanalAtendimento(Integer id, String nome) {
+	private CanalAtendimento salvarCanalAtendimento(Integer id, String nome) {
 		CanalAtendimento canalAtendimento = new CanalAtendimento();
 		canalAtendimento.setId(id);
 		canalAtendimento.setNome(nome);

@@ -17,7 +17,7 @@
 
 #form table td { width: 50%; }
 
-input[type=text] {width: 70%;}
+input[type=text] {width: 70%; display: inline; }
 select {width: 70%;}
 
 </style>
@@ -74,6 +74,10 @@ function getInput(de){
 	<form:form modelAttribute="operacaoBancariaPorCanalForm" action="${action}" method="POST" >
 	
 		<form:hidden path="operacaoBancariaPorCanalId" />
+		
+		<c:if test="${!empty errors}">
+			<h6><c:out value="${errors}" /></h6>
+		</c:if>
 	
 		<table>
 			<tr>
@@ -91,7 +95,7 @@ function getInput(de){
 				</td>
 				<td>
 					<form:select path="canalAtendimentoId" >
-						<form:option value="">Selecione...</form:option>
+						<form:option value="-1">Selecione...</form:option>
 						<form:options items="${listaCanalAtendimento}" />
 						<form:option value="">--Inserir Novo--</form:option>
 					</form:select>
@@ -99,8 +103,8 @@ function getInput(de){
 				</td>
 			</tr>
 			<tr>
-				<td><form:input path="operacaoBancariaNome"/><form:errors path="operacaoBancariaNome" /></td>
-				<td><form:input path="canalAtendimentoNome"/><form:errors path="canalAtendimentoNome" /></td>
+				<td><form:input path="operacaoBancariaNome" /><form:errors path="operacaoBancariaNome" /></td>
+				<td><form:input path="canalAtendimentoNome" /><form:errors path="canalAtendimentoNome" /></td>
 			</tr>
 		</table>
 		 
