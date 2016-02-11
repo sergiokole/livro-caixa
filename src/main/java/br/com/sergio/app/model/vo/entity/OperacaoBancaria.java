@@ -3,13 +3,20 @@ package br.com.sergio.app.model.vo.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import br.com.sergio.app.constants.TipoOperacaoBancaria;
 
 @Entity
 @Table(name="operacao_bancaria")
@@ -26,9 +33,19 @@ public class OperacaoBancaria implements Serializable {
 	
 	@Column
 	private String nome;
+	
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	private TipoOperacaoBancaria tipo;
+	
+	@Column
+	private String apelido;
 
-	@OneToMany
-	private List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="operacao_bancaria_por_canal", 
+			joinColumns={@JoinColumn(name="operacao_bancaria_id", referencedColumnName="id")},
+			inverseJoinColumns={@JoinColumn(name="canal_operacao_bancaria_id", referencedColumnName="id")})
+	private List<CanalOperacaoBancaria> canais;
 
 	/**
 	 * @return the id
@@ -59,17 +76,44 @@ public class OperacaoBancaria implements Serializable {
 	}
 
 	/**
-	 * @return the operacoesBancariasPorCanal
+	 * @return the tipo
 	 */
-	public List<OperacaoBancariaPorCanal> getOperacoesBancariasPorCanal() {
-		return operacoesBancariasPorCanal;
+	public TipoOperacaoBancaria getTipo() {
+		return tipo;
 	}
 
 	/**
-	 * @param operacoesBancariasPorCanal the operacoesBancariasPorCanal to set
+	 * @param tipo the tipo to set
 	 */
-	public void setOperacoesBancariasPorCanal(List<OperacaoBancariaPorCanal> operacoesBancariasPorCanal) {
-		this.operacoesBancariasPorCanal = operacoesBancariasPorCanal;
+	public void setTipo(TipoOperacaoBancaria tipo) {
+		this.tipo = tipo;
 	}
 
+	/**
+	 * @return the apelido
+	 */
+	public String getApelido() {
+		return apelido;
+	}
+
+	/**
+	 * @param apelido the apelido to set
+	 */
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
+	}
+
+	/**
+	 * @return the canais
+	 */
+	public List<CanalOperacaoBancaria> getCanais() {
+		return canais;
+	}
+
+	/**
+	 * @param canais the canais to set
+	 */
+	public void setCanais(List<CanalOperacaoBancaria> canais) {
+		this.canais = canais;
+	}
 }

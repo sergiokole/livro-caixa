@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.sergio.app.model.vo.OperacaoBancariaPorCanalVO;
 import br.com.sergio.app.service.OperacaoBancariaPorCanalService;
 
 /**
@@ -87,20 +89,26 @@ public class OperacaoBancariaPorCanalController {
 			return modelAndView;
 		}
 		
-		try{
-			service.salvar(
-					form.getOperacaoBancariaPorCanalId(),
-					form.getOperacaoBancariaId(), 
-					form.getOperacaoBancariaNome(), 
-					form.getCanalAtendimentoId(), 
-					form.getCanalAtendimentoNome());
-		} catch (Exception e){
-			modelAndView.addObject(form);
-			modelAndView.addObject("errors", e.getMessage());
-			return modelAndView;
-		}
+//		try{
+//			service.salvar(
+//					form.getOperacaoBancariaPorCanalId(),
+//					form.getOperacaoBancariaId(), 
+//					form.getOperacaoBancariaNome(), 
+//					form.getCanalAtendimentoId(), 
+//					form.getCanalAtendimentoNome());
+//		} catch (Exception e){
+//			modelAndView.addObject(form);
+//			modelAndView.addObject("errors", e.getMessage());
+//			return modelAndView;
+//		}
 		
 		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
+	}
+	
+	@RequestMapping(value="/exibir", method=RequestMethod.GET)
+	@ResponseBody
+	public List<OperacaoBancariaPorCanalVO> exibir(){
+		return service.todas();
 	}
 	
 	@RequestMapping("/remover/{operacaoBancariaPorId}")
