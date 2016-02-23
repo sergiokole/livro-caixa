@@ -15,10 +15,10 @@
 
 #form table {width: 100%; } 
 
-#form table td { width: 50%; }
+#form table td { width: 30%; }
 
 input[type=text] {width: 70%; display: inline; }
-select {width: 70%;}
+select {width: 50%; }
 
 </style>
 <script type="text/javascript">
@@ -35,8 +35,8 @@ $(function(){
 		$('form').submit();
 	});
 	
-	carregaConfiguracoesDe('operacaoBancaria');
-	carregaConfiguracoesDe('canalAtendimento');
+	//carregaConfiguracoesDe('operacaoBancaria');
+	//carregaConfiguracoesDe('canalAtendimento');
 });
 
 function carregaConfiguracoesDe(nome){
@@ -73,7 +73,7 @@ function getInput(de){
 	
 	<form:form modelAttribute="operacaoBancariaPorCanalForm" action="${action}" method="POST" >
 	
-		<form:hidden path="operacaoBancariaPorCanalId" />
+		<form:hidden path="id" />
 		
 		<c:if test="${!empty errors}">
 			<h6><c:out value="${errors}" /></h6>
@@ -81,30 +81,27 @@ function getInput(de){
 	
 		<table>
 			<tr>
-				<td ><strong>Operação Bancária</strong></td>
-				<td ><strong>Canal de Atendimento</strong></td>
+				<td ><strong>Tipo de Operação</strong></td>
+				<td ><strong>Nome</strong></td>
+				<td ><strong>Apelido</strong></td>
 			</tr>
 			<tr>
 				<td>
-					<form:select path="operacaoBancariaId" >
-						<form:option value="">Selecione...</form:option>
-						<form:options items="${listaOperacaoBancaria}" />
-						<form:option value="">--Inserir Novo--</form:option>
-					</form:select>
-					<form:errors path="operacaoBancariaId" />
+					<form:radiobutton path="tipo" value="DEBITO" />Débito
+					<form:radiobutton path="tipo" value="CREDITO" />Crédito
 				</td>
-				<td>
-					<form:select path="canalAtendimentoId" >
-						<form:option value="-1">Selecione...</form:option>
-						<form:options items="${listaCanalAtendimento}" />
-						<form:option value="">--Inserir Novo--</form:option>
-					</form:select>
-					<form:errors path="canalAtendimentoId" />
-				</td>
+				<td><form:input path="nome" /></td>
+				<td><form:input path="apelido" /></td>
 			</tr>
 			<tr>
-				<td><form:input path="operacaoBancariaNome" /><form:errors path="operacaoBancariaNome" /></td>
-				<td><form:input path="canalAtendimentoNome" /><form:errors path="canalAtendimentoNome" /></td>
+				<td colspan="3" ><strong>Canais de Operação</strong></td>
+			</tr>
+			<tr>
+				<td colspan="3" >
+					<form:select path="canais" multiple="true" size="5" >
+						<form:options items="${listaCanalOperacaoBancaria}" itemLabel="nome" itemValue="id" />
+					</form:select>
+				</td>
 			</tr>
 		</table>
 		 

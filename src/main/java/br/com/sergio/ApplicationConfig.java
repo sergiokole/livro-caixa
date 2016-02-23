@@ -69,7 +69,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan("br.com.sergio.app.model.vo.entity");
+        entityManagerFactoryBean.setPackagesToScan("br.com.sergio.app.model.jpa");
  
         Properties jpaProperties = new Properties();
      

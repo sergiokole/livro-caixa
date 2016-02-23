@@ -1,111 +1,76 @@
 package br.com.sergio.web.controller.operacaocanal;
 
+import java.util.List;
+
+import br.com.sergio.app.constants.TipoOperacaoBancaria;
+
 public class OperacaoBancariaPorCanalForm {
 	
-	private Integer operacaoBancariaPorCanalId;
-	private Integer operacaoBancariaId;
-	private String operacaoBancariaNome;
-	private Integer canalAtendimentoId;
-	private String canalAtendimentoNome;
-	
-	public OperacaoBancariaPorCanalForm() {}
-
-	public static OperacaoBancariaPorCanalForm lista(
-			Integer operacaoBancariaPorCanalId,
-			String operacaoBancariaNome,
-			String canalAtendimentoNome){
-		
-		OperacaoBancariaPorCanalForm form = new OperacaoBancariaPorCanalForm();
-		form.setOperacaoBancariaPorCanalId(operacaoBancariaPorCanalId);
-		form.setOperacaoBancariaNome(operacaoBancariaNome);
-		form.setCanalAtendimentoNome(canalAtendimentoNome);
-		return form;
-	}
-	
-	public static OperacaoBancariaPorCanalForm edita(
-			Integer operacaoBancariaPorCanalId,
-			Integer operacaoBancariaId,
-			Integer canalAtendimentoId){
-		
-		OperacaoBancariaPorCanalForm form = new OperacaoBancariaPorCanalForm();
-		form.setOperacaoBancariaPorCanalId(operacaoBancariaPorCanalId);
-		form.setOperacaoBancariaId(operacaoBancariaId);
-		form.setCanalAtendimentoId(canalAtendimentoId);
-		return form;
-	}
+	private Integer id;
+	private String nome;
+	private TipoOperacaoBancaria tipo;
+	private String apelido;
+	private List<Integer> canais;
 	
 	/**
-	 * @return the operacaoBancariaPorCanalId
+	 * @return the id
 	 */
-	public Integer getOperacaoBancariaPorCanalId() {
-		return operacaoBancariaPorCanalId;
+	public Integer getId() {
+		return id;
 	}
-
 	/**
-	 * @param operacaoBancariaPorCanalId the operacaoBancariaPorCanalId to set
+	 * @param id the id to set
 	 */
-	public void setOperacaoBancariaPorCanalId(Integer operacaoBancariaPorCanalId) {
-		this.operacaoBancariaPorCanalId = operacaoBancariaPorCanalId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
 	/**
-	 * @return the operacaoBancariaId
+	 * @return the nome
 	 */
-	public Integer getOperacaoBancariaId() {
-		return operacaoBancariaId;
+	public String getNome() {
+		return nome;
 	}
-
 	/**
-	 * @param operacaoBancariaId the operacaoBancariaId to set
+	 * @param nome the nome to set
 	 */
-	public void setOperacaoBancariaId(Integer operacaoBancariaId) {
-		this.operacaoBancariaId = operacaoBancariaId;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-
 	/**
-	 * @return the operacaoBancariaNome
+	 * @return the tipo
 	 */
-	public String getOperacaoBancariaNome() {
-		return operacaoBancariaNome;
+	public TipoOperacaoBancaria getTipo() {
+		return tipo;
 	}
-
 	/**
-	 * @param operacaoBancariaNome the operacaoBancariaNome to set
+	 * @param tipo the tipo to set
 	 */
-	public void setOperacaoBancariaNome(String operacaoBancariaNome) {
-		this.operacaoBancariaNome = operacaoBancariaNome;
+	public void setTipo(TipoOperacaoBancaria tipo) {
+		this.tipo = tipo;
 	}
-
 	/**
-	 * @return the canalAtendimentoId
+	 * @return the apelido
 	 */
-	public Integer getCanalAtendimentoId() {
-		return canalAtendimentoId;
+	public String getApelido() {
+		return apelido;
 	}
-
 	/**
-	 * @param canalAtendimentoId the canalAtendimentoId to set
+	 * @param apelido the apelido to set
 	 */
-	public void setCanalAtendimentoId(Integer canalAtendimentoId) {
-		this.canalAtendimentoId = canalAtendimentoId;
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
 	}
-
 	/**
-	 * @return the canalAtendimentoNome
+	 * @return the canais
 	 */
-	public String getCanalAtendimentoNome() {
-		return canalAtendimentoNome;
+	public List<Integer> getCanais() {
+		return canais;
 	}
-
 	/**
-	 * @param canalAtendimentoNome the canalAtendimentoNome to set
+	 * @param canais the canais to set
 	 */
-	public void setCanalAtendimentoNome(String canalAtendimentoNome) {
-		this.canalAtendimentoNome = canalAtendimentoNome;
-	}
-
-	public String getDescricao(){
-		return operacaoBancariaNome + " por " + canalAtendimentoNome;
+	public void setCanais(List<Integer> canais) {
+		this.canais = canais;
 	}
 	
 }

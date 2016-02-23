@@ -1,4 +1,4 @@
-package br.com.sergio.app.model.vo.entity;
+package br.com.sergio.app.model.jpa;
 
 import java.io.Serializable;
 import java.util.List;

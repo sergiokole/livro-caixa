@@ -1,7 +1,6 @@
 package br.com.sergio.web.controller.operacaocanal;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.sergio.app.model.vo.OperacaoBancariaPorCanalVO;
+import br.com.sergio.app.model.jpa.CanalOperacaoBancaria;
+import br.com.sergio.app.model.jpa.OperacaoBancaria;
 import br.com.sergio.app.service.OperacaoBancariaPorCanalService;
 
 /**
@@ -40,20 +40,15 @@ public class OperacaoBancariaPorCanalController {
 		binder.addValidators(validator);
 	}
 	
-	@ModelAttribute("listaOperacaoBancaria")
-	public Map<Integer, String> listaOperacaoBancaria(){
-		return service.listaOperacaoBancaria();
-	}
-	
-	@ModelAttribute("listaCanalAtendimento")
-	public Map<Integer, String> listaCanalAtendimento(){
-		return service.listaCanalAtendimento();
+	@ModelAttribute("listaCanalOperacaoBancaria")
+	public List<CanalOperacaoBancaria> listaCanalAtendimento(){
+		return service.listarCanais();
 	}
 	
 	@RequestMapping("")
 	public ModelAndView lista(){
 		
-		List<OperacaoBancariaPorCanalForm> lista = service.lista();
+		List<OperacaoBancaria> lista = service.listar();
 		
 		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.LISTA);
 		modelAndView.addObject("lista", lista);
@@ -73,7 +68,7 @@ public class OperacaoBancariaPorCanalController {
 	public ModelAndView editar(@PathVariable("operacaoBancariaPorCanalId") Integer operacaoBancariaPorCanalId){
 		
 		ModelAndView modelAndView = new ModelAndView(OperacaoBancariaPorCanalViewName.FORM);
-		modelAndView.addObject(service.edita(operacaoBancariaPorCanalId));
+//		modelAndView.addObject(service.edita(operacaoBancariaPorCanalId));
 		return  modelAndView;
 	}
 	
@@ -89,26 +84,26 @@ public class OperacaoBancariaPorCanalController {
 			return modelAndView;
 		}
 		
-//		try{
-//			service.salvar(
-//					form.getOperacaoBancariaPorCanalId(),
-//					form.getOperacaoBancariaId(), 
-//					form.getOperacaoBancariaNome(), 
-//					form.getCanalAtendimentoId(), 
-//					form.getCanalAtendimentoNome());
-//		} catch (Exception e){
-//			modelAndView.addObject(form);
-//			modelAndView.addObject("errors", e.getMessage());
-//			return modelAndView;
-//		}
+		try{
+			service.salvar(
+					form.getId(),
+					form.getNome(), 
+					form.getTipo(), 
+					form.getApelido(), 
+					form.getCanais());
+		} catch (Exception e){
+			modelAndView.addObject(form);
+			modelAndView.addObject("errors", e.getMessage());
+			return modelAndView;
+		}
 		
 		return new ModelAndView(OperacaoBancariaPorCanalViewName.REDIRECT_LISTA);
 	}
 	
 	@RequestMapping(value="/exibir", method=RequestMethod.GET)
 	@ResponseBody
-	public List<OperacaoBancariaPorCanalVO> exibir(){
-		return service.todas();
+	public List<OperacaoBancaria> exibir(){
+		return service.listar();
 	}
 	
 	@RequestMapping("/remover/{operacaoBancariaPorId}")
